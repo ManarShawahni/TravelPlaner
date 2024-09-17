@@ -6,11 +6,13 @@ import { fileURLToPath } from 'url';
 import axios from "axios";
 
 
-
 const app = express();
 
+// Resolve the current file's name and directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Load environment variables from .env file
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 
@@ -31,13 +33,19 @@ app.get("/", (req, res) => {
     res.render("index.html")
 });
 
+// Route to get location data from GeoNames API based on user input
 app.post("/getLocation", async (req,res) => {
     //console.log(req.body);
     const {location} = req.body
     const url = `http://api.geonames.org/searchJSON?name=${location}&maxRows=1&username=${user}`;
+
+    // Fetch location data from GeoNames API
     const response = await fetch(url);
     const data = await response.json();
 
+
+
+    // Check if data was found and return it, or send an error
     if (data.geonames && data.geonames.length > 0) {
         const { name, lat, lng } = data.geonames[0];
         //console.log(`Name: ${name}, Latitude: ${lat}, Longitude: ${lng}`);
@@ -48,6 +56,9 @@ app.post("/getLocation", async (req,res) => {
     
 }) 
 
+
+
+// Route to get weather data from the Weatherbit API based on coordinates
 app.post("/getWeather", async (req,res) => {
     //console.log(req.body);
     try {
@@ -88,6 +99,8 @@ app.post("/getWeather", async (req,res) => {
     }
 }) 
 
+
+// Route to get a photo of the city from Pixabay API
 app.post("/getPhoto", async (req, res) => {
 
     try {
