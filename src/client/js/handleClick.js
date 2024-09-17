@@ -4,6 +4,7 @@ import { updateUI } from './ui.js';
 import { showAlert, hideAlert, showToast, hideToast } from './alert.js';
 
 
+// When the DOM is fully loaded, set up event listeners
 document.addEventListener('DOMContentLoaded', () => {
     const closeAlertButton = document.getElementById('closeAlertButton');
     
@@ -14,17 +15,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Function to save trip data to local storage
 const saveTripToLocalStorage = (trip) => {
     let trips = JSON.parse(localStorage.getItem('trips')) || [];
     trips.push(trip);
     localStorage.setItem('trips', JSON.stringify(trips));
   };
 
+
 const form = document.querySelector("form");
 const departingDate = document.querySelector("#departing");
 const resultsPage = document.getElementById('results-page');
 
 
+// Handle form submission when the "Add Trip" button is clicked
 const handleClick = async (e) => {
     e.preventDefault();
     //console.log("button clicked");
@@ -64,10 +68,10 @@ const handleClick = async (e) => {
         const { lng, lat, name } = locationData;
         const Rdays = getRdays(date);
 
-
+        // Fetch weather data for the selected location
         const theWeather = await getWeather(lng, lat, Rdays);
 
-        console.log('Weather Data:', theWeather);
+       // console.log('Weather Data:', theWeather);
 
         if (!theWeather || !theWeather.city) {
             showToast('Weather data could not be retrieved. Please try again later.');
@@ -82,6 +86,7 @@ const handleClick = async (e) => {
             return;
         }
 
+        // Package all the trip data into an object
         const tripData = {
             city: theWeather.city,
             Rdays,
@@ -104,10 +109,14 @@ const handleClick = async (e) => {
     }
 };
 
+// Load saved trips from local storage when the page is loaded
+
 document.addEventListener('DOMContentLoaded', () => {
     const savedTrips = JSON.parse(localStorage.getItem('trips')) || [];
     savedTrips.forEach((trip) => updateUI(trip));
   });
+
+
 
 const handleReset = () => {
     form.reset();
