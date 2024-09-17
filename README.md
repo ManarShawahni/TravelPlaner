@@ -66,13 +66,13 @@ If Node.js or npm is not installed, download and install them from [Node.js offi
 
 The app requires API keys to access the **Weatherbit** and **Pixabay** APIs. Follow these steps:
 
-1. GeoNames API: Sign up at GeoNames to obtain a username. This username is needed to fetch location information based on city names.
+1. **GeoNames API**: Sign up at GeoNames to obtain a username. This username is needed to fetch location information based on city names.
 2. **Weatherbit API**: Sign up at [Weatherbit](https://www.weatherbit.io/account/create) and get an API key.
 3. **Pixabay API**: Sign up at [Pixabay](https://pixabay.com/api/docs/) and get an API key.
 4. **Create a `.env` file** in the root directory of the project and add your API keys:
 
    ```plaintext
-    USERNAME=your_username_at_geonames
+    USER=your_username_at_geonames
     WEATHER_API_KEY=your_weatherbit_api_key
     PIXABAY_API_KEY=your_pixabay_api_key
    ```
