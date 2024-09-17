@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Planner App</title>
+    <link rel="stylesheet" href="../styles/styles.scss">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="book-container" id="book-container">
+        <div class="left-page" id="left-page">
+            <header class="app-header">
+                <h1>Travel Planner App</h1>
+            </header>
+
+        <div class="add-trip">
+            <h3>Add a new trip:</h3>
+            <form id="tripForm" onsubmit="Client.handleClick(event)" >
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" placeholder="Enter Location">
+
+                <label for="departing">Departing:</label>
+                <input type="date" id="departing" name="departing">
+
+                <div class="form-buttons">
+                    <button type="submit" class="btn-primary save-trip">Add Trip</button>
+                    <button type="reset" class="remove-trip reset" id="resetButton">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+        <div class="right-page" id="results-page">
+            <div class="trip-results">
+            <h2 id="Rdays"></h2>
+            <div class="trip-info-card">
+                <p class="cityName"></p>
+                <p class="temp"></p>
+                <p class="temp-range"></p> 
+                <p class="weather"></p>
+                <div class="cityPic">
+                    <img id="photo" src="" alt="City or Weather Photo" style="width: 100%; height: auto;">
+                </div>
+            </div>
+        </div>
+</div>
+
+        <!-- Custom Alert for critical errors -->
+        <div id="customAlert" class="custom-alert" style="display: none;">
+            <span id="alertMessage"></span>
+            <button class="close-alert" id="closeAlertButton">✖</button>
+        </div>
+    
+        <!-- Toast Notification for non-critical errors -->
+        <div id="toast" class="toast" style="display: none;">
+            <span id="toastMessage"></span>
+        </div>
+    </div>
+</body>
+</html>

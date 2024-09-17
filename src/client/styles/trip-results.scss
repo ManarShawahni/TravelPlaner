@@ -1,0 +1,63 @@
+.trip-results {
+    padding: 20px;
+    background-color: $white-color;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px $shadow-color;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    @media (max-width: $breakpoint-mobile) {
+        padding: 15px; 
+    }
+}
+
+
+
+.trip-info-card {
+    background-color: $light-gray;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+
+    @media (max-width: $breakpoint-mobile) {
+        padding: 15px; 
+    }
+
+    p {
+        margin: 10px 0;
+        font-size: 1.1rem;
+        color: $forest-green;
+
+        @media (max-width: $breakpoint-mobile) {
+            font-size: 1rem; 
+        }
+    }
+
+    .temp-range {
+        font-weight: bold;
+        color: $light-olive;
+
+        @media (max-width: $breakpoint-mobile) {
+            font-size: 1rem;  
+        }
+    }
+
+    .weather {
+        font-style: italic;
+        color: $forest-green;
+
+        @media (max-width: $breakpoint-mobile) {
+            font-size: 1rem;  
+        }
+    }
+
+    .cityPic img {
+        margin-top: 15px;
+        border-radius: 10px;
+        max-width: 100%;  
+        height: auto;
+    }
+}

@@ -1,0 +1,64 @@
+.add-trip {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @media (max-width: $breakpoint-mobile) {
+        padding: 5px;
+    }
+}
+
+.add-trip label {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: $white-color;
+
+    @media (max-width: $breakpoint-mobile) {
+        font-size: 1rem; 
+    }
+}
+
+.add-trip input[type="text"], .add-trip input[type="date"] {
+    padding: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 1rem;
+
+    @media (max-width: $breakpoint-mobile) {
+        padding: 8px; 
+    }
+}
+
+.form-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.save-trip, .reset {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.save-trip {
+    background-color: $forest-green;
+    color: $white-color
+}
+
+.save-trip:hover {
+    background-color: darken($forest-green, 10%);
+}
+
+.reset {
+    background-color: $light-olive;
+    color: $white-color;
+}
+
+.reset:hover {
+    background-color: darken($light-olive, 10%);
+}

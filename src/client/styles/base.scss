@@ -1,0 +1,67 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: $font-stack;
+    background: linear-gradient(270deg, #AAB396, #E7E8D8, #4F6F52);
+    background-size: 600% 600%; /* Size of gradient for smooth transitions */
+    animation: gradientAnimation 20s ease infinite; /* Infinite animation for gradient transition */
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../assets/clouds.png') repeat;
+    background-size: 250px 150px; 
+    filter: blur(8px);
+    z-index: 0;
+    opacity: 0.6;
+    animation: cloudMovement 40s linear infinite;
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes cloudMovement {
+    0% {
+        background-position: 0% 0%;
+        transform: scale(1);
+    }
+    25% {
+        background-position: 10% 30%;
+        transform: scale(1.05); 
+    }
+    50% {
+        background-position: 50% 50%;
+        transform: scale(0.95); 
+    }
+    75% {
+        background-position: 80% 70%;  
+        transform: scale(1.1); 
+    }
+    100% {
+        background-position: 100% 100%; 
+        transform: scale(1);  
+    }
+}
+
+
+h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+    color: $forest-green;
+}
