@@ -38,6 +38,12 @@ node -v
 npm -v
 ```
 
+- **Node.js** version `20.16.0` or higher is required. Ensure you have the correct version installed by running:
+  ```bash
+  node -v
+  ```
+  If you don't have the correct version, you can download Node.js from [here](https://nodejs.org/).
+
 If Node.js or npm is not installed, download and install them from [Node.js official website](https://nodejs.org/).
 
 ### **Installation**
