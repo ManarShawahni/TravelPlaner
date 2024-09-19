@@ -67,6 +67,14 @@ If Node.js or npm is not installed, download and install them from [Node.js offi
    ```bash
    npm install
    ```
+   
+4. **Install CORS**:
+
+   Install cors to handle cross-origin requests:
+
+   ```bash
+   npm install cors
+   ```
 
 ### **API Key Configuration**
 
@@ -101,6 +109,7 @@ The app requires API keys to access the **Weatherbit** and **Pixabay** APIs. Fol
    npm install --save-dev style-loader node-sass css-loader sass-loader
    npm install --save-dev clean-webpack-plugin html-webpack-plugin
    npm install --save-dev mini-css-extract-plugin css-minimizer-webpack-plugin terser-webpack-plugin
+   npm install --save-dev workbox-webpack-plugin
    ```
 
 2. **Running the Development Server**:
