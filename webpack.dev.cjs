@@ -3,6 +3,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const { GenerateSW } = require('workbox-webpack-plugin');
 
 
 module.exports = {
@@ -39,7 +40,39 @@ module.exports = {
             verbose: true,
             cleanStaleWebpackAssets: true,
             protectWebpackAssets: false
-        })
+        }),
+        new GenerateSW({
+            clientsClaim: true,
+            skipWaiting: true,
+            runtimeCaching: [
+                {
+                    urlPattern: new RegExp('/getLocation|/getWeather|/getPhoto'),
+                    handler: 'NetworkFirst',
+                    options: {
+                        cacheName: 'api-cache',
+                        networkTimeoutSeconds: 10, 
+                        expiration: {
+                            maxEntries: 50,
+                            maxAgeSeconds: 300,
+                        },
+                        cacheableResponse: {
+                            statuses: [200]
+                        }
+                    },
+                },
+                {
+                    urlPattern: /\.(?:js|css|html)$/,
+                    handler: 'CacheFirst',
+                    options: {
+                        cacheName: 'static-resources',
+                        expiration: {
+                            maxEntries: 50,
+                            maxAgeSeconds: 86400,
+                        },
+                    },
+                }
+            ],
+        }),
     ],
     optimization: {
         minimizer: [

@@ -12,6 +12,7 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+
 // Load environment variables from .env file
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
@@ -19,11 +20,11 @@ dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 app.use(cors());
 app.use(express.json());
 
+
 const port = process.env.PORT || 9000;
 const user = process.env.USER;
 
 //console.log(`WEATHER_API_KEY: ${process.env.WEATHER_API_KEY}`);
-
 
 //console.log(user);
 
@@ -127,6 +128,11 @@ app.post("/getPhoto", async (req, res) => {
 });
 
 
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
+}
+
+
+export { app };
