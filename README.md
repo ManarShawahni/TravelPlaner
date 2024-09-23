@@ -111,6 +111,7 @@ The app requires API keys to access the **Weatherbit** and **Pixabay** APIs. Fol
    npm install --save-dev mini-css-extract-plugin css-minimizer-webpack-plugin terser-webpack-plugin
    npm install --save-dev workbox-webpack-plugin
    npm install supertest --save-dev
+   npm install --save-dev babel-plugin-transform-import-meta
    ```
 
 2. **Running the Development Server**:
