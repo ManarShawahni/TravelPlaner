@@ -2,24 +2,19 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import axios from "axios";
 
 
 const app = express();
 
-// Resolve the current file's name and directory
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = path.join(process.cwd(), 'src', 'server');
 
 
 // Load environment variables from .env file
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
-
 app.use(cors());
 app.use(express.json());
-
 
 const port = process.env.PORT || 9000;
 const user = process.env.USER;
@@ -40,11 +35,13 @@ app.post("/getLocation", async (req,res) => {
     const {location} = req.body
     const url = `http://api.geonames.org/searchJSON?name=${location}&maxRows=1&username=${user}`;
 
+    if (!location) {
+        return res.status(400).json({ error: 'Location is required' });
+    }
+
     // Fetch location data from GeoNames API
     const response = await fetch(url);
     const data = await response.json();
-
-
 
     // Check if data was found and return it, or send an error
     if (data.geonames && data.geonames.length > 0) {
@@ -135,4 +132,4 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 
-export { app };
+export default app;

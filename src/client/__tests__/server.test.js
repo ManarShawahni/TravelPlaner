@@ -1,39 +1,46 @@
 import request from 'supertest';
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
+import app from '../../../src/server/server.js';
 
-const app = express();
-app.use(cors());
-dotenv.config();
-
-app.get('/api/test', (req, res) => {
-  res.status(200).send('Hello from server');
-});
-
-app.get('/api/error', (req, res, next) => {
-  next(new Error('Test Error'));
-});
-
-app.use((err, req, res, next) => {
-  res.status(500).json({ error: err.message || 'Internal Server Error' });
-});
-
-describe('Express Server Tests', () => {
-  it('should respond with "Hello from server" for /api/test route', async () => {
-    const response = await request(app).get('/api/test');
-    expect(response.status).toBe(200);
-    expect(response.text).toBe('Hello from server');
+describe('Express Server Test', () => {
+  // Test for homepage
+  it('should return the homepage (index.html) with a 200 status', async () => {
+    const response = await request(app).get('/');
+    expect(response.statusCode).toBe(200);
+    expect(response.headers['content-type']).toMatch(/html/);
   });
 
-  it('should handle server errors gracefully', async () => {
-    const response = await request(app).get('/api/error');
-    expect(response.status).toBe(500);
-    expect(response.body).toHaveProperty('error', 'Test Error');
+  // Test for getting location data
+  it('should respond to POST /getLocation with the correct location data', async () => {
+    const mockLocation = { location: 'New York' };
+    const response = await request(app)
+      .post('/getLocation')
+      .send(mockLocation);
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty('name', 'New York');
+    expect(response.body).toHaveProperty('lat', '40.71427');
+    expect(response.body).toHaveProperty('lng', '-74.00597');
   });
 
-  it('should handle non-existing routes with 404', async () => {
-    const response = await request(app).get('/api/nonexistent');
-    expect(response.status).toBe(404);
+  // Test for invalid location
+  it('should respond with a 400 status for an invalid location', async () => {
+    const invalidLocation = { location: '' }; 
+    const response = await request(app)
+      .post('/getLocation')
+      .send(invalidLocation);
+
+    expect(response.statusCode).toBe(400); 
+    expect(response.body).toHaveProperty('error', 'Location is required');
+  });
+
+
+  // Test for missing request body
+  it('should respond with a 400 status for missing request body', async () => {
+    const response = await request(app)
+      .post('/getLocation')
+      .send({}); // Sending an empty object
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toHaveProperty('error', 'Location is required');
   });
 });
